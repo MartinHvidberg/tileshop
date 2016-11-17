@@ -1,10 +1,8 @@
-
-from PIL import Image
+#from PIL import Image
 import ts_base as ts
 
 print ts.version()
 print ts.helptext()
 
-im = Image.open("../data/Steward.jpg")
-print im.format, im.size, im.mode
-im.show()
+im_clp = ts.clip("../data/Steward.jpg",100,100,200,200)
+im_clp.show()
