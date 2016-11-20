@@ -1,6 +1,7 @@
 
 from PIL import Image
-from gtk.keysyms import Left, Right
+
+# http://pillow.readthedocs.io/en/3.1.x/reference/Image.html
 
 str_version = "0.0.3 (Steward)"
 str_build   = "2016-11-17 22:00"
@@ -37,6 +38,11 @@ def lurl2ooss(tup_lurl, tup_imsize):
     sy = lower-upper
     return((ox,oy,sx,sy))
 
+def make(sizex=1, sizey=1, mode='RGBA'):
+    """ Make new empty picture """
+    # Image.new(mode, (sizex,sizey), color) # XXX let make() accept deafult init colour
+    return Image.new(mode, (sizex,sizey))
+    
 def clip(str_pic_file_name, ofsx=0, ofsy=0, sizex=1, sizey=1, margx=0, margy=0, repeat=False):
     """ Clip a rectangel out of a picture, and save it to a new file.
     pic = input picture
@@ -52,12 +58,12 @@ def clip(str_pic_file_name, ofsx=0, ofsy=0, sizex=1, sizey=1, margx=0, margy=0, 
         return
     else:
         im = Image.open(str_pic_file_name, 'r')
-        print "im", (im.format, im.size, im.mode)
+        #print "im", (im.format, im.size, im.mode)
         lurl = ooss2lurl((ofsx,ofsy, sizex, sizey), im.size)
-        print "lurl:", lurl
+        #print "lurl:", lurl
     return im.crop(lurl)
 
-def mask(pic, mask, fill, ofsx, ofsy):
+def mask(pic, mask, fill):
     """    pic = input picture
     mask = mask. Can be picture, can be?
            mask value is black (hex:FFFFFF)
@@ -65,10 +71,22 @@ def mask(pic, mask, fill, ofsx, ofsy):
     --offsetmx, --offsetmy = mask coordinate shift, in pixels (negative values shift left, down)
     --offsetfx, --offsetfy = fill coordinate shift, in pixels (negative values shift left, down)
     outputs a picture witch is identical to pic, but have all pixels in mask replaced with fill """
-    return
+    return Image.composite(pic, fill, mask.convert('1'))
 
-def jointiles(i,j,k):
-    """Join multible pictures into one picture"""
+def fill(pic1,pic2,ofsx=0,ofsy=0):
+    """Fill (add, stamp) pic2 into pic1. lower-left pixel of pic2 will replace (x,y) pixel in pic1"""
+    #return pic1.paste(pic2,ooss2lurl((ofsx,ofsy,pic1.size[0],pic1.size[1]),pic1.size),None)
+    print "  pic1:", pic1
+    print "  pic2:", pic2
+    print "  ofsx:", str(type(ofsy)),ofsy
+    print "  ofsy:", str(type(ofsy)),ofsy
+    #im_plate.paste(im_milieu,(100,100))
+    pic1.paste(pic2,(ofsx,ofsy))
+    print pic1 
+    return pic1
+    #return pic1.paste(pic2)
+
+def tint(pic, oldcolour, newcolour):
     return
 
 def batchfile(batch_file):
@@ -77,4 +95,8 @@ def batchfile(batch_file):
 
 def maskgenerator(l,m,n):
     """Generates mask files, eg. with random patterns for smooth transects."""
+    # Image.putpixel(xy, value) ?
+    # Image.save(fp, format=None, **params)
     return
+
+# Image.rotate(angle, resample=0, expand=0)
