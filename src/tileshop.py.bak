@@ -1,8 +1,8 @@
 from PIL import Image
 import ts_base as ts
 
-print(ts.version())
-print(ts.helptext())
+print ts.version()
+print ts.helptext()
 
 im_1 = ts.clip("../data/Steward.jpg",100,100,300,300)
 im_2 = ts.clip("../data/Asis.png", 0, 0, 300, 300)
@@ -30,7 +30,7 @@ for i in range(ii):
             im_milieu_ij_NW = ts.clip("../data/milieu_{}_{}.png".format(i,j),16,16,32,32) # NW corner
             # Build a new area
             im_plate = ts.make(320,320)
-            print(im_plate.mode, im_plate.size)
+            print im_plate.mode, im_plate.size
             for k in range(0,320,32):
                 for l in range(0,320,32):
                     im_plate = ts.fill(im_plate, im_milieu_ij_cc, k, l)

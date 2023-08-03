@@ -54,7 +54,7 @@ def clip(str_pic_file_name, ofsx=0, ofsy=0, sizex=1, sizey=1, margx=0, margy=0, 
     Also note that coordinates refer to positions between the pixels, so the region in the 
     (100, 100, 400, 400) is exactly 300x300 pixels."""
     if repeat:
-        print("'--repeat' Not implemented  yet...")
+        print "'--repeat' Not implemented  yet..."
         return
     else:
         im = Image.open(str_pic_file_name, 'r')
@@ -76,13 +76,13 @@ def mask(pic, mask, fill):
 def fill(pic1,pic2,ofsx=0,ofsy=0):
     """Fill (add, stamp) pic2 into pic1. lower-left pixel of pic2 will replace (x,y) pixel in pic1"""
     #return pic1.paste(pic2,ooss2lurl((ofsx,ofsy,pic1.size[0],pic1.size[1]),pic1.size),None)
-    print("  pic1:", pic1)
-    print("  pic2:", pic2)
-    print("  ofsx:", str(type(ofsy)),ofsy)
-    print("  ofsy:", str(type(ofsy)),ofsy)
+    print "  pic1:", pic1
+    print "  pic2:", pic2
+    print "  ofsx:", str(type(ofsy)),ofsy
+    print "  ofsy:", str(type(ofsy)),ofsy
     #im_plate.paste(im_milieu,(100,100))
     pic1.paste(pic2,(ofsx,ofsy))
-    print(pic1) 
+    print pic1 
     return pic1
     #return pic1.paste(pic2)
 
